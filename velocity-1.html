@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./animate.css">
+  <script src="./vue.js"></script>
+  <title>vue动画</title>
+</head>
+<body>
+  <div id="root">
+    <transition name="fade"
+      @before-enter="handleBeforeEnter"
+      @enter="handleEnter"
+      @after-enter="handleAfterEnter"
+    >
+        <div v-show="show">hello world!</div>
+    </transition>
+    
+    <button @click="handleClick">toggle</button>
+  </div>
+
+
+  <script>
+   
+    var vm = new Vue({
+      el:'#root',
+      data:{
+        show:true
+      },
+      methods:{
+        handleClick(){
+          this.show = !this.show
+        },
+        handleBeforeEnter(el){
+          el.style.color='red'
+        },
+        handleEnter(el,done){
+          setTimeout(() => {
+            el.style.color='green'
+          },2000)
+          setTimeout(() => {
+            done()
+          }, 4000);
+        },
+        handleAfterEnter(el){
+          el.style.color="#000"
+        }
+      }
+    })
+  
+  </script>
+
+</body>
+</html>
